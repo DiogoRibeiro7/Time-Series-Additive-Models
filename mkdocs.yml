@@ -7,6 +7,7 @@ nav:
   - Home: index.md
   - Architecture: architecture.md
   - Methodology: methodology.md
+  - Basis construction: basis.md
 
 theme:
   name: material
