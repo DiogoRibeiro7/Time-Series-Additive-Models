@@ -1,0 +1,18 @@
+site_name: Time-Series Additive Models
+site_description: Statistical additive modelling for interpretable time-series forecasting
+repo_url: https://github.com/DiogoRibeiro7/Time-Series-Additive-Models
+repo_name: DiogoRibeiro7/Time-Series-Additive-Models
+
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - Methodology: methodology.md
+
+theme:
+  name: material
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true

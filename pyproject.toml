@@ -1,16 +1,18 @@
 [tool.poetry]
 name = "time-series-additive-models"
 version = "0.1.0"
-description = "Reproducible research on additive models for time-series forecasting."
+description = "Transparent statistical additive modelling for time-series forecasting."
 authors = ["Diogo Ribeiro"]
 license = "Apache-2.0"
 readme = "README.md"
-package-mode = false
+packages = [{ include = "time_series_additive_models", from = "src" }]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.15"
 
 [tool.poetry.group.dev.dependencies]
+mkdocs = ">=1.6,<2.0"
+mkdocs-material = ">=9.5,<10.0"
 mypy = ">=1.15,<2.0"
 pre-commit = ">=4.0,<5.0"
 pytest = ">=8.0,<10.0"
@@ -28,7 +30,7 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 [tool.mypy]
 python_version = "3.11"
 strict = true
-files = ["tests"]
+files = ["src", "tests"]
 
 [tool.pytest.ini_options]
 addopts = "-ra --strict-config --strict-markers"
@@ -36,11 +38,12 @@ testpaths = ["tests"]
 
 [tool.coverage.run]
 branch = true
-source = ["tests"]
+source = ["time_series_additive_models"]
 
 [tool.coverage.report]
 show_missing = true
 skip_covered = true
+fail_under = 80
 
 [build-system]
 requires = ["poetry-core>=2.0"]
