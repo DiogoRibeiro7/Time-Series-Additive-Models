@@ -8,6 +8,9 @@ The format follows the principles of Keep a Changelog. The project is currently 
 
 ### Added
 
+- explicit polynomial, piecewise-linear, and Fourier basis construction;
+- reusable affine time transformation for consistent training and future design matrices;
+- immutable named basis matrices and safe basis composition;
 - installable typed Python package structure;
 - Poetry-based development environment;
 - Ruff, mypy, pytest, coverage, and pre-commit checks;
