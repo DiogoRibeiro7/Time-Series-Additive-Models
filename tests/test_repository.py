@@ -1,4 +1,4 @@
-"""Repository-level regression tests for the historical research artefacts."""
+"""Repository-level regression tests for historical research artefacts."""
 
 from __future__ import annotations
 
@@ -8,7 +8,9 @@ from pathlib import Path
 from typing import cast
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
-NOTEBOOK_PATH = REPOSITORY_ROOT / "Additive Models for Prediction.ipynb"
+NOTEBOOK_PATH = (
+    REPOSITORY_ROOT / "legacy" / "notebooks" / "additive_models_for_prediction.ipynb"
+)
 
 _LITERAL_API_KEY_ASSIGNMENT = re.compile(
     r"""quandl\.ApiConfig\.api_key\s*=\s*['"][^'"]+['"]"""

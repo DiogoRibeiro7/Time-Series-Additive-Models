@@ -1,82 +1,129 @@
 # Time-Series Additive Models
 
-A research repository for studying additive models in time-series forecasting, with an emphasis on interpretable trend, seasonality, changepoints, and uncertainty.
+[![CI](https://github.com/DiogoRibeiro7/Time-Series-Additive-Models/actions/workflows/ci.yml/badge.svg)](https://github.com/DiogoRibeiro7/Time-Series-Additive-Models/actions/workflows/ci.yml)
+[![Docs](https://github.com/DiogoRibeiro7/Time-Series-Additive-Models/actions/workflows/docs.yml/badge.svg)](https://github.com/DiogoRibeiro7/Time-Series-Additive-Models/actions/workflows/docs.yml)
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-The repository began as a notebook-based analysis using historical financial and macroeconomic examples. It is now being rehabilitated into a reproducible research project while preserving the original notebook as a record of the earlier work.
+A typed Python project for transparent statistical additive modelling of time series.
 
-## Scope
+The project focuses on models whose components and assumptions remain visible: smooth trend terms, seasonal bases, interventions, serially dependent errors, diagnostics, uncertainty, and rolling-origin evaluation. It does not use Prophet in the maintained modelling stack.
 
-The original notebook explores several questions:
+## Project status
 
-- comparison of General Motors and Tesla market capitalisation;
-- additive forecasting with Prophet;
-- sensitivity to the changepoint prior scale;
-- forecast uncertainty and trend decomposition;
-- long-horizon GDP forecasts for the United States and China.
+The repository is under active redevelopment. The engineering foundation is in place, while the maintained statistical model layer is being implemented incrementally and reviewed through pull requests.
 
-The notebook is retained as historical material. Its use of `fbprophet` is not part of the maintained modelling direction of this repository.
+The original notebook-based analysis is preserved under `legacy/` for provenance. It is not part of the maintained package or execution path.
 
-## Repository status
+## Statistical scope
 
-Modernisation is in progress. The current work deliberately separates infrastructure changes from scientific changes so that numerical and modelling behaviour can be reviewed independently.
-
-The original notebook remains at:
+The core model family starts from an additive representation
 
 ```text
-Additive Models for Prediction.ipynb
+y_t = f(t) + s(t) + x_t^T beta + epsilon_t
 ```
 
-Data files are stored under `data/`. The existing CSV and Excel files were committed through Git LFS, so Git LFS is required when cloning the historical data exactly as stored.
+where `f(t)` represents smooth trend structure, `s(t)` periodic or seasonal structure, `x_t` observed regressors and interventions, and `epsilon_t` a residual process that may be serially dependent.
 
-## Development setup
+The maintained implementation is intended to cover:
 
-The project uses Poetry for development tooling.
+- regression splines for nonlinear trend;
+- Fourier and cyclic seasonal bases;
+- intervention and structural-break terms;
+- GLS and ARIMA-error formulations where appropriate;
+- structural time-series and state-space formulations;
+- residual and calibration diagnostics;
+- rolling-origin evaluation and comparative model assessment;
+- uncertainty intervals derived from explicit statistical models.
+
+## Repository layout
+
+```text
+src/time_series_additive_models/   maintained Python package
+tests/                             unit, integration, and statistical tests
+docs/                              methodology and engineering documentation
+data/                              data policy and legacy research datasets
+legacy/                            historical notebook-based analyses
+.github/                           CI, templates, and repository automation
+```
+
+Maintained modelling logic belongs under `src/time_series_additive_models/`. New analysis should not be added directly to notebooks when it can be expressed as tested package code.
+
+## Installation
+
+The project uses Poetry.
 
 ```bash
+git clone https://github.com/DiogoRibeiro7/Time-Series-Additive-Models.git
+cd Time-Series-Additive-Models
 poetry install
-poetry run ruff check .
-poetry run mypy tests
-poetry run pytest
 ```
 
-To install Git LFS before pulling the historical data:
+The historical datasets use Git LFS. They are not required for package installation, but can be retrieved with:
 
 ```bash
 git lfs install
 git lfs pull
 ```
 
-## Credentials
+## Quality checks
 
-Do not place API keys in notebooks or source files.
-
-For Nasdaq Data Link credentials, use an environment variable:
+Run the same checks used by CI:
 
 ```bash
-export NASDAQ_DATA_LINK_API_KEY="your-key"
+poetry run ruff check src tests
+poetry run mypy src tests
+poetry run pytest --cov --cov-report=term-missing
+poetry run mkdocs build --strict
 ```
 
-A local `.env` file may also be used by development tooling, but it is ignored by Git. The committed `.env.example` contains only the variable name and no credential.
+The repository currently supports Python 3.11 and 3.13 in CI.
 
-## Modernisation roadmap
+## Documentation
 
-The rehabilitation is intentionally incremental:
+Project documentation lives under `docs/` and is built with MkDocs Material.
 
-1. establish repository metadata, automated checks, and reproducibility safeguards;
-2. retain the original Prophet notebook only as a historical artefact and remove it from the maintained execution path;
-3. replace the forecasting implementation with explicit statistical additive models based on spline trends, seasonal bases, interventions, and appropriate error structures;
-4. migrate legacy remote-data retrieval to reproducible local inputs or a documented current source;
-5. extract reusable preprocessing, fitting, prediction, and diagnostic code into a typed Python package;
-6. add unit tests, numerical regression tests, and statistical validation tests;
-7. implement rolling-origin evaluation and principled model comparison;
-8. document assumptions, data provenance, diagnostics, limitations, and reproducibility.
+```bash
+poetry run mkdocs serve
+```
 
-## Scientific perspective
+The documentation covers architecture, methodology, statistical assumptions, and development conventions.
 
-Additive forecasting models are useful when a time series can be represented through components such as a smooth trend, periodic structure, known events, and residual variation. Their convenience does not remove the need to examine identifiability, structural breaks, extrapolation assumptions, parameter sensitivity, and forecast uncertainty.
+## Legacy analysis
 
-The maintained implementation will use additive models as an explicit statistical framework rather than as a wrapper around Prophet. The preferred components are regression splines for nonlinear trend, Fourier or cyclic bases for periodic structure, intervention terms for structural changes, and GLS, ARIMA-error, or state-space formulations when residual dependence remains. Forecast uncertainty and model comparison should come from the fitted statistical model, residual diagnostics, and rolling-origin evaluation rather than from a single forecasting interface.
+The original analysis used historical Quandl data and `fbprophet`. It is retained solely to preserve the development history of the project.
+
+The notebook is located at:
+
+```text
+legacy/notebooks/additive_models_for_prediction.ipynb
+```
+
+Associated datasets are stored under `data/legacy/`.
+
+No new maintained code should depend on the legacy notebook or on Prophet.
+
+## Development
+
+Contributions should be made through pull requests against `main`. See [CONTRIBUTING.md](CONTRIBUTING.md) for coding, testing, and review conventions.
+
+Security-sensitive issues should follow [SECURITY.md](SECURITY.md).
+
+## Roadmap
+
+Near-term work is focused on:
+
+1. implementing reusable spline and seasonal basis construction;
+2. introducing typed model interfaces and validated input structures;
+3. adding residual diagnostics and autocorrelation-aware models;
+4. implementing rolling-origin evaluation;
+5. adding numerical and statistical regression tests;
+6. expanding methodology documentation with reproducible maintained examples.
+
+## Citation
+
+Citation metadata is provided in [CITATION.cff](CITATION.cff).
 
 ## License
 
-Apache License 2.0. See `LICENSE`.
+Apache License 2.0. See [LICENSE](LICENSE).
