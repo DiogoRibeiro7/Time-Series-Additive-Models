@@ -8,6 +8,9 @@ The format follows the principles of Keep a Changelog. The project is currently 
 
 ### Added
 
+- ordinary least-squares estimation with explicit full-rank checks;
+- classical residual variance, covariance matrix, and coefficient standard errors;
+- named-design prediction and condition-number reporting;
 - explicit polynomial, piecewise-linear, and Fourier basis construction;
 - reusable affine time transformation for consistent training and future design matrices;
 - immutable named basis matrices and safe basis composition;
