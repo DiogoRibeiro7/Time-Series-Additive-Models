@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
-from numpy.typing import NDArray
+from numpy.typing import ArrayLike, NDArray
 
 from time_series_additive_models.modelling.basis import (
     BasisMatrix,
@@ -35,16 +35,14 @@ def test_time_transform_can_be_reused_for_future_observations() -> None:
     "time",
     [[], [1.0], [1.0, 1.0], [0.0, np.nan], [[0.0, 1.0]]],
 )
-def test_time_transform_rejects_invalid_training_coordinates(time: object) -> None:
+def test_time_transform_rejects_invalid_training_coordinates(time: ArrayLike) -> None:
     with pytest.raises(ValueError):
         TimeTransform.fit(time)
 
 
 def test_time_transform_rejects_non_numeric_input() -> None:
     with pytest.raises(TypeError, match="numeric"):
-        TimeTransform.fit(  # type: ignore[arg-type]
-            ["not-a-number", "still-not-a-number"]
-        )
+        TimeTransform.fit(["not-a-number", "still-not-a-number"])
 
 
 @pytest.mark.parametrize(
@@ -75,12 +73,9 @@ def test_polynomial_trend_basis_can_drop_intercept() -> None:
 
 
 @pytest.mark.parametrize("degree", [-1, True])
-def test_polynomial_trend_basis_rejects_invalid_degree(degree: object) -> None:
+def test_polynomial_trend_basis_rejects_invalid_degree(degree: int) -> None:
     with pytest.raises((TypeError, ValueError)):
-        polynomial_trend_basis(  # type: ignore[arg-type]
-            [0.0, 1.0],
-            degree=degree,
-        )
+        polynomial_trend_basis([0.0, 1.0], degree=degree)
 
 
 def test_polynomial_trend_basis_rejects_empty_design() -> None:
