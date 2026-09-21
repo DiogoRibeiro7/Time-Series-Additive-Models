@@ -37,7 +37,7 @@ def test_time_transform_can_be_reused_for_future_observations() -> None:
 )
 def test_time_transform_rejects_invalid_training_coordinates(time: object) -> None:
     with pytest.raises(ValueError):
-        TimeTransform.fit(time)  # type: ignore[arg-type]
+        TimeTransform.fit(time)
 
 
 def test_time_transform_rejects_non_numeric_input() -> None:
