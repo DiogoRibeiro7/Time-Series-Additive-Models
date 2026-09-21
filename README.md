@@ -14,7 +14,7 @@ The original notebook explores several questions:
 - forecast uncertainty and trend decomposition;
 - long-horizon GDP forecasts for the United States and China.
 
-The notebook predates the current Python Prophet API and the current Nasdaq Data Link client. It should therefore be treated as historical analysis until its dependencies and data-access code have been migrated.
+The notebook is retained as historical material. Its use of `fbprophet` is not part of the maintained modelling direction of this repository.
 
 ## Repository status
 
@@ -63,18 +63,19 @@ A local `.env` file may also be used by development tooling, but it is ignored b
 The rehabilitation is intentionally incremental:
 
 1. establish repository metadata, automated checks, and reproducibility safeguards;
-2. migrate the notebook from `fbprophet` to the current `prophet` package;
-3. migrate legacy Quandl access to the current Nasdaq Data Link client or replace remote retrieval with reproducible local inputs;
-4. extract reusable preprocessing and modelling code from the notebook;
-5. add statistical tests and regression checks for the extracted code;
-6. separate historical demonstrations from maintained examples;
-7. document assumptions, data provenance, model limitations, and reproducibility.
+2. retain the original Prophet notebook only as a historical artefact and remove it from the maintained execution path;
+3. replace the forecasting implementation with explicit statistical additive models based on spline trends, seasonal bases, interventions, and appropriate error structures;
+4. migrate legacy remote-data retrieval to reproducible local inputs or a documented current source;
+5. extract reusable preprocessing, fitting, prediction, and diagnostic code into a typed Python package;
+6. add unit tests, numerical regression tests, and statistical validation tests;
+7. implement rolling-origin evaluation and principled model comparison;
+8. document assumptions, data provenance, diagnostics, limitations, and reproducibility.
 
 ## Scientific perspective
 
 Additive forecasting models are useful when a time series can be represented through components such as a smooth trend, periodic structure, known events, and residual variation. Their convenience does not remove the need to examine identifiability, structural breaks, extrapolation assumptions, parameter sensitivity, and forecast uncertainty.
 
-The purpose of this repository is therefore not to present Prophet as a universal forecasting method. It is to use additive models as an interpretable modelling framework and to make the assumptions behind the forecasts explicit.
+The maintained implementation will use additive models as an explicit statistical framework rather than as a wrapper around Prophet. The preferred components are regression splines for nonlinear trend, Fourier or cyclic bases for periodic structure, intervention terms for structural changes, and GLS, ARIMA-error, or state-space formulations when residual dependence remains. Forecast uncertainty and model comparison should come from the fitted statistical model, residual diagnostics, and rolling-origin evaluation rather than from a single forecasting interface.
 
 ## License
 
