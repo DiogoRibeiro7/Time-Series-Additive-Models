@@ -8,6 +8,7 @@ nav:
   - Architecture: architecture.md
   - Methodology: methodology.md
   - Basis construction: basis.md
+  - Residual diagnostics: diagnostics.md
 
 theme:
   name: material
