@@ -7,7 +7,7 @@ from typing import cast
 import numpy as np
 import pytest
 
-from time_series_additive_models.modelling import BasisMatrix, fit_ols
+from time_series_additive_models.modelling import BasisMatrix, OLSResult, fit_ols
 from time_series_additive_models.modelling.covariance import (
     CovarianceResult,
     HCType,
@@ -200,5 +200,3 @@ def test_covariance_result_validates_shapes() -> None:
             method="invalid",
         )
 
-
-from time_series_additive_models.modelling.estimation import OLSResult
