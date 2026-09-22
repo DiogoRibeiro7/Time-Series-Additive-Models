@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import cast
+
 import numpy as np
 import pytest
 from numpy.typing import NDArray
@@ -173,8 +175,7 @@ def test_covariance_rejects_mismatched_rows() -> None:
 
 
 def test_covariance_rejects_rank_deficient_design() -> None:
-    _, result_object = _fit()
-    result = cast("OLSResult", result_object)
+    _, result = _fit()
     rank_deficient = BasisMatrix(
         np.ones((result.nobs, result.nparams)),
         result.columns,
