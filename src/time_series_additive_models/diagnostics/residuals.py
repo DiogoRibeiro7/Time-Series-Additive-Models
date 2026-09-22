@@ -7,7 +7,7 @@ from math import isfinite, sqrt
 
 import numpy as np
 from numpy.typing import ArrayLike, NDArray
-from scipy.stats import chi2
+from scipy.stats import chi2  # type: ignore[import-untyped]
 
 FloatArray = NDArray[np.float64]
 
