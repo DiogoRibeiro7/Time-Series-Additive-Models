@@ -8,6 +8,7 @@ nav:
   - Architecture: architecture.md
   - Methodology: methodology.md
   - Basis construction: basis.md
+  - Ordinary least squares: estimation.md
 
 theme:
   name: material
