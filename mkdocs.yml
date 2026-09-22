@@ -9,6 +9,7 @@ nav:
   - Methodology: methodology.md
   - Basis construction: basis.md
   - Ordinary least squares: estimation.md
+  - Residual diagnostics: diagnostics.md
 
 theme:
   name: material

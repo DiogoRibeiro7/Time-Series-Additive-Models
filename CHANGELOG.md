@@ -8,6 +8,8 @@ The format follows the principles of Keep a Changelog. The project is currently 
 
 ### Added
 
+- residual autocorrelation estimation and Ljung-Box portmanteau diagnostics;
+- residual mean, standard deviation, RMSE, and MAE summaries;
 - ordinary least-squares estimation with explicit full-rank checks;
 - classical residual variance, covariance matrix, and coefficient standard errors;
 - named-design prediction and condition-number reporting;
