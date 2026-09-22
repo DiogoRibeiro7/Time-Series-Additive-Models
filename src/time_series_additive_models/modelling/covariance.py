@@ -107,7 +107,6 @@ def heteroskedasticity_consistent_covariance(
 
     residuals = result.residuals
     nobs = result.nobs
-    nparams = result.nparams
     bread = _bread(x)
     squared_residuals = residuals**2
 
