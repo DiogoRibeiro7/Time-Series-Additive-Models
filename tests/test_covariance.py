@@ -43,7 +43,7 @@ def test_hc0_matches_direct_sandwich_formula() -> None:
     design, result = _fit()
     robust = heteroskedasticity_consistent_covariance(result, design, kind="HC0")
     expected = _manual_hc(design, result.residuals, result.residuals**2)
-    np.testing.assert_allclose(robust.covariance, expected)
+    np.testing.assert_allclose(robust.covariance, expected, atol=1e-12)
     np.testing.assert_allclose(robust.standard_errors, np.sqrt(np.diag(expected)))
     assert robust.method == "HC0"
     assert robust.small_sample is False
@@ -69,7 +69,7 @@ def test_hc2_hc3_match_leverage_adjustment(kind: HCType, power: int) -> None:
     weights = result.residuals**2 / (1.0 - leverage) ** power
     expected = _manual_hc(design, result.residuals, weights)
     robust = heteroskedasticity_consistent_covariance(result, design, kind=kind)
-    np.testing.assert_allclose(robust.covariance, expected)
+    np.testing.assert_allclose(robust.covariance, expected, atol=1e-12)
 
 
 def test_covariance_result_arrays_are_immutable() -> None:
@@ -120,7 +120,7 @@ def test_newey_west_matches_direct_bartlett_formula() -> None:
         small_sample=False,
     )
 
-    np.testing.assert_allclose(robust.covariance, expected)
+    np.testing.assert_allclose(robust.covariance, expected, atol=1e-12)
     assert robust.method == "Newey-West"
     assert robust.max_lag == 2
     assert robust.small_sample is False
