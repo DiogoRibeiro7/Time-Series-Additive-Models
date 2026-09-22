@@ -10,6 +10,7 @@ nav:
   - Basis construction: basis.md
   - Ordinary least squares: estimation.md
   - Residual diagnostics: diagnostics.md
+  - Robust covariance: covariance.md
 
 theme:
   name: material

@@ -8,6 +8,8 @@ The format follows the principles of Keep a Changelog. The project is currently 
 
 ### Added
 
+- HC0-HC3 heteroskedasticity-consistent covariance estimators;
+- Newey-West HAC covariance with Bartlett weights and optional small-sample correction;
 - residual autocorrelation estimation and Ljung-Box portmanteau diagnostics;
 - residual mean, standard deviation, RMSE, and MAE summaries;
 - ordinary least-squares estimation with explicit full-rank checks;
